@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -117,6 +118,7 @@ fun ProfileScreen() {
         // Atualizando a seção de informações para incluir ícones
         ProfileInfoSectionWithIcon(
             title = "Email",
+            titleIcon = Icons.Default.Email,
             details = listOf(
                 "Oficial: lucas@exemplo.com" to Icons.Default.Email,
                 "Pessoal: cria.lucas@padoca.com" to Icons.Default.Email
@@ -125,6 +127,7 @@ fun ProfileScreen() {
 
         ProfileInfoSectionWithIcon(
             title = "Phone Number",
+            titleIcon = Icons.Default.Phone,
             details = listOf(
                 "Mobile: (11) 99999-9999" to Icons.Default.Phone
             )
@@ -132,6 +135,7 @@ fun ProfileScreen() {
 
         ProfileInfoSectionWithIcon(
             title = "Team",
+            titleIcon = Icons.Default.AccountBox,
             details = listOf(
                 "Projeto Fortune Dick" to Icons.Default.AccountBox
             )
@@ -139,10 +143,12 @@ fun ProfileScreen() {
 
         ProfileInfoSectionWithIcon(
             title = "Leads by",
+            titleIcon = Icons.Default.Person,
             details = listOf(
                 "Pantufa, a dog manager" to Icons.Default.Person
             )
         )
+
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -169,7 +175,7 @@ fun ProfileActionButton(label: String, icon: ImageVector? = null, imageResId: In
                 painter = painterResource(id = imageResId),
                 contentDescription = label,
                 modifier = Modifier
-                    .size(24.dp) // Adapte o tamanho da imagem aqui
+                    .size(24.dp)
                     .clip(CircleShape)
             )
         }
@@ -181,26 +187,48 @@ fun ProfileActionButton(label: String, icon: ImageVector? = null, imageResId: In
 
 
 @Composable
-fun ProfileInfoSectionWithIcon(title: String, details: List<Pair<String, ImageVector>>, modifier: Modifier = Modifier) {
+fun ProfileInfoSectionWithIcon(
+    title: String,
+    titleIcon: ImageVector,
+    details: List<Pair<String, ImageVector>>,
+    modifier: Modifier = Modifier
+) {
     Column(modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-        Text(title, fontWeight = FontWeight.Bold, color = Color.Gray)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(bottom = 4.dp)
+        ) {
+            Icon(
+                imageVector = titleIcon,
+                contentDescription = title,
+                tint = colorResource(id = R.color.roxo),
+                modifier = Modifier
+                    .size(27.dp)
+                    .padding(end = 8.dp)
+            )
+            Text(
+                text = title,
+                fontWeight = FontWeight.Bold,
+                color = Color.Gray,
+                fontSize = 15.sp
+            )
+        }
+
         details.forEach { detail ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(vertical = 4.dp)
             ) {
-                Icon(
-                    imageVector = detail.second,
-                    contentDescription = detail.first,
-                    tint = Color.Gray,
-                    modifier = Modifier.size(20.dp)
-                )
+
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(detail.first, color = Color.Black, fontSize = 14.sp)
             }
         }
     }
 }
+
+
+
 
 
 @Preview(showBackground = true)
