@@ -190,8 +190,9 @@ fun ProfileActionButton(label: String, icon: ImageVector? = null, imageResId: In
 fun ProfileInfoSectionWithIcon(
     title: String,
     titleIcon: ImageVector,
-    details: List<Pair<String, ImageVector>>,
-    modifier: Modifier = Modifier
+    details: List<Triple<String, String, ImageVector>>,
+
+modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Row(
