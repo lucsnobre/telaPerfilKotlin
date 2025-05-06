@@ -28,7 +28,7 @@ import br.senai.sp.jandira.appPerfil.ui.theme.AppPerfilTheme
 @Composable
 
 fun ProfileScreen() {
-    val purpleBackground = painterResource(id = R.drawable.fundo)
+    val purpleBackground = painterResource(id = R.drawable.fundor)
 
     Column(
         modifier = Modifier
@@ -50,7 +50,7 @@ fun ProfileScreen() {
             )
 
             IconButton(
-                onClick = { /* Aqui tu bota a lógica pra voltar ou sair */ },
+                onClick = {  },
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(16.dp)
@@ -86,8 +86,8 @@ fun ProfileScreen() {
 
                 Spacer(modifier = Modifier.height(30.dp)) // Adicionando espaçamento entre o avatar e as informações
 
-                Text("Lucas Cria", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text("Sr. UX/UI das Quebradas", color = Color.White, fontSize = 14.sp)
+                Text("Cachorrada", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text("", color = Color.White, fontSize = 14.sp)
             }
 
 
