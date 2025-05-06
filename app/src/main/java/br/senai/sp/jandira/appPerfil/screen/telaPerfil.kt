@@ -157,11 +157,11 @@ fun ProfileScreen() {
             horizontalArrangement = Arrangement.SpaceAround
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Person, contentDescription = "Add contact")
+                Icon(Icons.Default.Person, contentDescription = "Add contact", tint = colorResource(id = R.color.roxo))
                 Spacer(modifier = Modifier.width(8.dp))
                 Text("Add contact", color = Color.Black)
             }
-            Icon(Icons.Default.Share, contentDescription = "Share")
+            Icon(Icons.Default.Share, contentDescription = "Share", tint = colorResource(id = R.color.roxo))
         }
     }
 }
