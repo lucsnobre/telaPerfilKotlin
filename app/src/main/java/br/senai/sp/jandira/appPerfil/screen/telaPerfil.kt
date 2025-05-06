@@ -69,11 +69,11 @@ fun ProfileScreen() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Details",
+                    text = "Detalhes",
                     color = Color.White,
-                    fontSize = 16.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    modifier = Modifier.offset(y = (-31).dp)
                 )
 
                 Image(
@@ -86,8 +86,8 @@ fun ProfileScreen() {
 
                 Spacer(modifier = Modifier.height(30.dp)) // Adicionando espaçamento entre o avatar e as informações
 
-                Text("Cachorrada", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text("", color = Color.White, fontSize = 14.sp)
+                Text("Cachorrada", color = Color.White, fontSize = 27.sp, fontWeight = FontWeight.Bold)
+                Text("De pente de 30!", color = Color.White, fontSize = 17.sp)
             }
 
 
@@ -99,9 +99,13 @@ fun ProfileScreen() {
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 ProfileActionButton("Email", Icons.Default.Email)
-                ProfileActionButton("Call", Icons.Default.Phone)
-                ProfileActionButton("Whatsapp", Icons.Default.Call)
-                ProfileActionButton("Favorite", Icons.Default.Favorite)
+                ProfileActionButton("Ligar", Icons.Default.Phone)
+                ProfileActionButton(
+                    label = "Whatsapp",
+                    imageResId = R.drawable.zapzap
+                )
+
+                ProfileActionButton("Favoritar", Icons.Default.Favorite)
             }
         }
 
@@ -153,18 +157,29 @@ fun ProfileScreen() {
     }
 }
 @Composable
-fun ProfileActionButton(label: String, icon: ImageVector) {
+fun ProfileActionButton(label: String, icon: ImageVector? = null, imageResId: Int? = null) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Icon(icon, contentDescription = label, tint = Color.White)
+        if (icon != null) {
+            Icon(icon, contentDescription = label, tint = Color.White)
+        } else if (imageResId != null) {
+            Image(
+                painter = painterResource(id = imageResId),
+                contentDescription = label,
+                modifier = Modifier
+                    .size(24.dp) // Adapte o tamanho da imagem aqui
+                    .clip(CircleShape)
+            )
+        }
         Text(label, fontSize = 12.sp, color = Color.White)
     }
 }
 
 
 
+
 @Composable
-fun ProfileInfoSectionWithIcon(title: String, details: List<Pair<String, ImageVector>>) {
-    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+fun ProfileInfoSectionWithIcon(title: String, details: List<Pair<String, ImageVector>>, modifier: Modifier = Modifier) {
+    Column(modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Text(title, fontWeight = FontWeight.Bold, color = Color.Gray)
         details.forEach { detail ->
             Row(
@@ -183,6 +198,7 @@ fun ProfileInfoSectionWithIcon(title: String, details: List<Pair<String, ImageVe
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
