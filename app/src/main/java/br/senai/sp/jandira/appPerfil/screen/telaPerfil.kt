@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -39,6 +41,11 @@ fun ProfileScreen() {
             modifier = Modifier
                 .height(380.dp)
                 .fillMaxWidth()
+                .graphicsLayer(
+                    shadowElevation = 16f,
+                    shape = RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp),
+                    clip = true
+                )
         ) {
             Image(
                 painter = purpleBackground,
@@ -48,8 +55,12 @@ fun ProfileScreen() {
                     .fillMaxSize()
                     .clip(RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp))
             )
+        }
 
-            IconButton(
+
+
+
+        IconButton(
                 onClick = {  },
                 modifier = Modifier
                     .align(Alignment.TopStart)
