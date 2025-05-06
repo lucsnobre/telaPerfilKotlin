@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.appPerfil.ui.theme.AppPerfilTheme
 
 @Composable
+
 fun ProfileScreen() {
     val purpleBackground = painterResource(id = R.drawable.fundo)
 
@@ -36,7 +37,7 @@ fun ProfileScreen() {
     ) {
         Box(
             modifier = Modifier
-                .height(380.dp) // AUMENTOU A ALTURA DA IMAGEM
+                .height(380.dp)
                 .fillMaxWidth()
         ) {
             Image(
@@ -45,10 +46,9 @@ fun ProfileScreen() {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
-                    .clip(RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp)) // BORDA ARREDONDADA SÓ EMBAIXO
+                    .clip(RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp))
             )
 
-            // SETA "PARA SAIR"
             IconButton(
                 onClick = { /* Aqui tu bota a lógica pra voltar ou sair */ },
                 modifier = Modifier
@@ -65,7 +65,7 @@ fun ProfileScreen() {
             Column(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
-                    .padding(top = 60.dp), // AJUSTADO PRA CABER A SETA
+                    .padding(top = 60.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -83,11 +83,14 @@ fun ProfileScreen() {
                         .size(100.dp)
                         .clip(CircleShape)
                 )
+
+                Spacer(modifier = Modifier.height(30.dp)) // Adicionando espaçamento entre o avatar e as informações
+
                 Text("Lucas Cria", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Text("Sr. UX/UI das Quebradas", color = Color.White, fontSize = 14.sp)
             }
 
-            // BOTÕES DENTRO DA IMAGEM
+
             Row(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -104,22 +107,35 @@ fun ProfileScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        ProfileInfoSection(title = "Email", details = listOf(
-            "Oficial: lucas@exemplo.com",
-            "Pessoal: cria.lucas@padoca.com"
-        ))
+        // Atualizando a seção de informações para incluir ícones
+        ProfileInfoSectionWithIcon(
+            title = "Email",
+            details = listOf(
+                "Oficial: lucas@exemplo.com" to Icons.Default.Email,
+                "Pessoal: cria.lucas@padoca.com" to Icons.Default.Email
+            )
+        )
 
-        ProfileInfoSection(title = "Phone Number", details = listOf(
-            "Mobile: (11) 99999-9999"
-        ))
+        ProfileInfoSectionWithIcon(
+            title = "Phone Number",
+            details = listOf(
+                "Mobile: (11) 99999-9999" to Icons.Default.Phone
+            )
+        )
 
-        ProfileInfoSection(title = "Team", details = listOf(
-            "Projeto Fortune Dick"
-        ))
+        ProfileInfoSectionWithIcon(
+            title = "Team",
+            details = listOf(
+                "Projeto Fortune Dick" to Icons.Default.AccountBox
+            )
+        )
 
-        ProfileInfoSection(title = "Leads by", details = listOf(
-            "Pantufa, a dog manager"
-        ))
+        ProfileInfoSectionWithIcon(
+            title = "Leads by",
+            details = listOf(
+                "Pantufa, a dog manager" to Icons.Default.Person
+            )
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -127,12 +143,15 @@ fun ProfileScreen() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Icon(Icons.Default.Person, contentDescription = "Add contact")
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Default.Person, contentDescription = "Add contact")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Add contact", color = Color.Black)
+            }
             Icon(Icons.Default.Share, contentDescription = "Share")
         }
     }
 }
-
 @Composable
 fun ProfileActionButton(label: String, icon: ImageVector) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -144,11 +163,23 @@ fun ProfileActionButton(label: String, icon: ImageVector) {
 
 
 @Composable
-fun ProfileInfoSection(title: String, details: List<String>) {
+fun ProfileInfoSectionWithIcon(title: String, details: List<Pair<String, ImageVector>>) {
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Text(title, fontWeight = FontWeight.Bold, color = Color.Gray)
-        details.forEach {
-            Text(it, color = Color.Black, fontSize = 14.sp)
+        details.forEach { detail ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(vertical = 4.dp)
+            ) {
+                Icon(
+                    imageVector = detail.second,
+                    contentDescription = detail.first,
+                    tint = Color.Gray,
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(detail.first, color = Color.Black, fontSize = 14.sp)
+            }
         }
     }
 }
